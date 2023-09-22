@@ -1,0 +1,84 @@
+[[language]]
+name = "cpp"
+language-id = "cpp"
+scope = "source.cpp"
+file-types = [ "cpp", "hpp" ]
+roots = [ "CMakeLists.txt" ]
+auto-format = true
+diagnostic-severity = "Hint"
+comment-token = "//"
+indent = { unit = "    ", tab-width = 4 }
+language-servers = [ "clangd" ]
+grammar = "cpp"
+formatter = { command="clang-format" }
+
+[language-server.clangd]
+command = "clangd"
+args = [ "--header-insertion=never" ]
+
+[[language]]
+name = "python"
+language-id = "python"
+scope = "source.python"
+file-types = [ "py" ]
+roots = [ "__init__.py" ]
+auto-format = true
+diagnostic-severity = "Hint"
+comment-token = "#"
+indent = { unit = "    ", tab-width = 4 }
+language-servers = [ "pylsp" ]
+grammar = "python"
+formatter = { command = "black", args = [ "--quiet", "-" ] }
+
+[language-server.pylsp]
+command = "pylsp"
+config = {plugins = {ruff = { enabled = true}}}
+
+[[language]]
+name = "xml"
+auto-format = true
+indent = {tab-width = 4, unit = "    "}
+
+[[language]]
+name = "latex"
+scope = "source.tex"
+file-types = ["tex"]
+comment-token = "%"
+indent = {tab-width = 4, unit = "    "}
+
+[[language]]
+name = "nix"
+auto-format = true
+indent = {tab-width=2, unit = "  "}
+
+[[language]]
+name = "mojo"
+scope = "source.mojo"
+file-types = [ "mojo" ]
+shebangs = ["mojo"]
+diagnostic-severity = "Hint"
+roots = ["__init__.mojo"]
+comment-token = "#"
+auto-format = true
+indent = {tab-width = 4, unit = " "}
+language-servers = [ "mojo-lsp-server" ]
+formatter = { command = "mojo format", args = [ "--quiet", "-" ] }
+
+[language-server.mojo-lsp-server]
+command = "mojo-lsp-server"
+args = [ "--color" ]
+
+[[language]]
+name = "cmake"
+scope = "source.cmake"
+injection-regex = "(C|c)make"
+file-types = [ "txt", "cmake.in", "cmake" ]
+diagnostic-severity = "Hint"
+roots = [ "CMakeLists.txt" ]
+comment-token = "#"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+language-servers = [ "cmake-language-server" ]
+
+[language-server.cmake-language-server]
+command = "cmake-language-server"
