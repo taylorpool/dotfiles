@@ -2,7 +2,7 @@
 name = "cpp"
 language-id = "cpp"
 scope = "source.cpp"
-file-types = [ "cpp", "hpp" ]
+file-types = [ "h", "cpp", "hpp", "cppm" ]
 roots = [ "CMakeLists.txt" ]
 auto-format = true
 diagnostic-severity = "Hint"
@@ -42,9 +42,17 @@ indent = {tab-width = 4, unit = "    "}
 [[language]]
 name = "latex"
 scope = "source.tex"
+auto-format = true
 file-types = ["tex"]
 comment-token = "%"
 indent = {tab-width = 4, unit = "    "}
+grammar = "latex"
+language-servers = [ "texlab" ]
+
+[language-server.texlab.config.texlab]
+build = { onSave = true }
+forwardSearch = { executable = "flatpak run org.kde.okular", args = [ "--unique", "file:%p#src:%l%f" ] }
+
 
 [[language]]
 name = "nix"
@@ -63,7 +71,7 @@ diagnostic-severity = "Hint"
 roots = ["__init__.mojo"]
 comment-token = "#"
 auto-format = true
-indent = {tab-width = 4, unit = " "}
+indent = {tab-width = 4, unit = "    "}
 language-servers = [ "mojo-lsp-server" ]
 formatter = { command = "mojo format", args = [ "--quiet", "-" ] }
 
